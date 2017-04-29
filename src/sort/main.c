@@ -34,7 +34,7 @@ int main() {
 
     // Sort and print array before/after
     print(array, TEST_ARRAY_SIZE);
-    selectionSort(array, TEST_ARRAY_SIZE);
+    insertionSort(array, TEST_ARRAY_SIZE);
     print(array, TEST_ARRAY_SIZE);
 }
 
