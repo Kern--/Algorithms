@@ -2,5 +2,5 @@
 #include <stddef.h>
 
 void bubbleSort(int array[], const size_t len);
-
+void selectionSort(int array[], const size_t len);
 
