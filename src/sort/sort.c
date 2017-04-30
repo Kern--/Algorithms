@@ -69,3 +69,39 @@ void insertionSort(int array[], const size_t len) {
         array[j] = currentValue;
     }
 }
+
+void mergeSort(int array[], const size_t len) {
+    if (len == 1 || len == 0) {
+        return;
+    }
+    // Split array into 2 halves
+    size_t midpoint = len / 2;
+    int *left = array;
+    int *right = &array[midpoint];
+    size_t leftLen = midpoint;
+    size_t rightLen = len - midpoint;
+     
+    // Sort each half individually
+    mergeSort(left, leftLen);
+    mergeSort(right, rightLen);
+
+    // merge left and right back together
+    size_t leftIndex = 0;   
+    size_t rightIndex = midpoint;
+    // Slight time saving - since we know that the right array is sorted, if
+    //  we ever find that the entirety of the left array is sorted, we don't need
+    //  to check the rest right array.
+    while (leftIndex < rightIndex && rightIndex < len) {
+        if (array[rightIndex] < array[leftIndex]) {
+            int currentValue = array[rightIndex];
+            // Make space to insert the new element
+            for (size_t j = rightIndex; j > leftIndex; --j) {
+                array[j] = array[j - 1];
+            }
+            array[leftIndex] = currentValue;
+            // increment the right index since we consumed one of the right array's values
+            ++rightIndex;
+        }
+        ++leftIndex;
+    }
+}
