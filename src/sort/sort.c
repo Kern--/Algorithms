@@ -1,5 +1,6 @@
 #include <limits.h>
 #include <stdbool.h>
+#include <stdlib.h>
 #include "sort.h"
 #include "util.h"
 
@@ -105,3 +106,33 @@ void mergeSort(int array[], const size_t len) {
         ++leftIndex;
     }
 }
+
+void quickSort(int array[], const size_t len) {
+    // Choose an element in the list to be a pivot
+    // Partition the array into elements smaller than the pivot and elements greater than the pivot
+    //  sort each partition recursively  
+
+    // An array of length 0 or 1 is already sorted
+    if (len < 2) {
+        return;
+    }
+
+    // Choose a random pivot
+    size_t pivot = rand() % len;
+
+    // Partition
+    swap(&array[pivot], &array[len - 1]);
+    size_t partitionDivider = 0;
+    for (size_t i = 0; i < len; ++i) {
+        if (array[i] < array[len - 1]) {
+            swap(&array[i], &array[partitionDivider]);
+            ++partitionDivider;
+        } 
+    }
+    swap(&array[len - 1], &array[partitionDivider]);
+
+    // Sort each partition
+    quickSort(array, partitionDivider);
+    quickSort(&array[partitionDivider], len - partitionDivider);
+}
+

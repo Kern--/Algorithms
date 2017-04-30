@@ -34,7 +34,7 @@ int main() {
 
     // Sort and print array before/after
     print(array, TEST_ARRAY_SIZE);
-    mergeSort(array, TEST_ARRAY_SIZE);
+    quickSort(array, TEST_ARRAY_SIZE);
     print(array, TEST_ARRAY_SIZE);
 }
 
