@@ -8,9 +8,11 @@
 
 #define TEST_ARRAY_SIZE 20
 
+void print(const int[], const size_t);
+
 void print(const int array[], const size_t len) {
     printf("[");
-    for (int i = 0; i < len; ++i) {
+    for (size_t i = 0; i < len; ++i) {
         printf("%d", array[i]);
         if (i < len - 1) {
             printf(", ");
