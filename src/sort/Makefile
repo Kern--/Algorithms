@@ -2,13 +2,16 @@ CC=clang
 CFLAGS=-Weverything -Werror
 
 TARGET=sort
-SRC=main.c
+SRC=benchmark.c
 OBJ=sort.o util.o
 
 %.o: %.c
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 $(TARGET): $(OBJ) $(SRC)
+	$(CC) -o $@ $^ $(CFLAGS)
+
+sanity: $(OBJ) main.c
 	$(CC) -o $@ $^ $(CFLAGS)
 
 .PHONY: clean
