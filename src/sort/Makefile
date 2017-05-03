@@ -14,7 +14,10 @@ $(TARGET): $(OBJ) $(SRC)
 sanity: $(OBJ) main.c
 	$(CC) -o $@ $^ $(CFLAGS)
 
+test: $(OBJ) test.c
+	$(CC) -o $@ $^ $(CFLAGS)
+
 .PHONY: clean
 clean:
-	rm *.o $(TARGET) sanity
+	rm *.o $(TARGET) sanity test
 

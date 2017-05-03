@@ -4,14 +4,6 @@
 #include "sort.h"
 #include "util.h"
 
-// Convenience typedef for passing sort function pointers
-typedef void (*SortFunc)(int array[], const size_t len);
-
-// Array generating functions
-int *generateAscending(const size_t size);
-int *generateDescending(const size_t size);
-int *generateRandom(const size_t size);
-
 // A method to test stuff
 void test(SortFunc sort, const size_t arraySize, const size_t runs);
 
@@ -41,7 +33,7 @@ void test(SortFunc sort, const size_t arraySize, const size_t runs) {
     clock_t *timing = (clock_t *)malloc(runs * sizeof (clock_t));
     clock_t average = 0;
     for (size_t i = 0; i < runs; ++i) {
-        int *array = generateRandom(arraySize);
+        int *array = generateRandomArray(arraySize);
         start = clock();
         sort(array, arraySize);
         end = clock();
@@ -55,24 +47,3 @@ void test(SortFunc sort, const size_t arraySize, const size_t runs) {
     free(timing);
 }
 
-int *generateAscending(const size_t size) {
-    int *array = (int *)malloc(size * sizeof (int));
-    for (size_t i = 0; i < size; ++i) {
-        array[i] = (int)i;
-    }
-    return array;
-}
-
-int *generateDescending(const size_t size) {
-    int *array = (int *)malloc(size * sizeof (int));
-    for (size_t i = 0; i < size; ++i) {
-        array[i] = (int)size - (int)i;
-    }
-    return array;
-}
-
-int *generateRandom(const size_t size) {
-    int *array = generateAscending(size);
-    shuffle(array, size);
-    return array;
-}
