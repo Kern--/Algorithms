@@ -13,3 +13,9 @@ typedef struct {
     const char* const name;
 } TestConfiguration;
 
+typedef enum {
+    ASCENDING,
+    DESCENDING,
+    RANDOM
+} ArrayDirection;
+
