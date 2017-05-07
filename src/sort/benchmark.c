@@ -8,7 +8,7 @@
 #define len(a) sizeof (a) / sizeof (a[0])
 
 // A method to test stuff
-clock_t *test(SortFuncInfo sort, const size_t arraySize, const size_t runs);
+clock_t *test(SortFuncInfo sort, const size_t arraySize, const ArrayDirection arrayDirection, const size_t runs);
 
 // A function to perform a single test of a sort function
 clock_t test_single(SortFunc sort, const size_t arraySize, const ArrayDirection direction);
@@ -16,11 +16,13 @@ clock_t test_single(SortFunc sort, const size_t arraySize, const ArrayDirection 
 // A function for generating an array with a given default sort order
 int *generateArray(const size_t size, const ArrayDirection direction);
 
-clock_t *runTestSuite(SortFuncInfo sort, const size_t tests[], const size_t numTests, const size_t runs);
+clock_t *runTestSuite(SortFuncInfo sort, const size_t tests[], const size_t numTests, const ArrayDirection arrayDirection, const size_t runs);
 
 clock_t average(const clock_t array[], const size_t arraySize);
 
 clock_t cyclesToMs(const clock_t cycles);
+
+const char *directionName(ArrayDirection direction);
 
 void printTestSizes(const size_t tests[], const size_t arraySize);
 
@@ -34,36 +36,41 @@ static SortFuncInfo sorts[] = {
     { quickSort, "Quick Sort" }
 };
 
+static ArrayDirection testArrayDirections[] = { RANDOM, ASCENDING, DESCENDING };
 static size_t testSizes[] = { 100, 500, 1000, 2000, 3000, 4000, 5000, 10000, 15000, 20000, 25000, 30000, 40000, 50000, 75000, 100000 };
 
 
 int main() {
     const size_t runs = 10;
-    const size_t numTests = len(testSizes);
-
-    printTestSizes(testSizes, numTests);
+    const size_t numArraySizes = len(testSizes);
+    const size_t numArrayDirections = len(testArrayDirections);
     size_t numSorts = len(sorts);
-    for (size_t i = 0; i < numSorts; ++i) {
-        clock_t *averages = runTestSuite(sorts[i], testSizes, numTests, runs);
-        printTestResults(sorts[i].name, averages, numTests);
-        free(averages);
+
+    for (size_t i = 0; i < numArrayDirections; ++i) {
+        printf("Benchmarking sorts against a %s array\n", directionName(testArrayDirections[i])); 
+        printTestSizes(testSizes, numArraySizes);
+        for (size_t j = 0; j < numSorts; ++j) {
+            clock_t *averages = runTestSuite(sorts[j], testSizes, numArraySizes, testArrayDirections[i], runs);
+            printTestResults(sorts[j].name, averages, numArraySizes);
+            free(averages);
+        }
     }
 }
 
-clock_t *runTestSuite(SortFuncInfo sort, const size_t tests[], const size_t numTests, const size_t runs) {
+clock_t *runTestSuite(SortFuncInfo sort, const size_t tests[], const size_t numTests, ArrayDirection arrayDirection, const size_t runs) {
     clock_t *averageMs = (clock_t *)malloc(numTests * sizeof (clock_t));
     for (size_t i = 0; i < numTests; ++i) {
-        clock_t *results = test(sort, tests[i], runs);
+        clock_t *results = test(sort, tests[i], arrayDirection, runs);
         averageMs[i] = cyclesToMs(average(results, runs));
         free(results);
     }
     return averageMs;
 }
 
-clock_t *test(SortFuncInfo sort, const size_t arraySize, const size_t runs) {
+clock_t *test(SortFuncInfo sort, const size_t arraySize, const ArrayDirection arrayDirection, const size_t runs) {
     clock_t *timing = (clock_t *)malloc(runs * sizeof (clock_t));
     for (size_t i = 0; i < runs; ++i) {
-        timing[i] = test_single(sort.sort, arraySize, RANDOM);
+        timing[i] = test_single(sort.sort, arraySize, arrayDirection);
     }
     return timing;
 }
@@ -101,6 +108,17 @@ int *generateArray(const size_t size, const ArrayDirection direction) {
             return generateDescendingArray(size);
         case RANDOM:
             return generateRandomArray(size);
+    }
+}
+
+const char *directionName(ArrayDirection direction) {
+    switch (direction) {
+        case ASCENDING:
+            return "ascending";
+        case DESCENDING:
+            return "descending";
+        case RANDOM:
+            return "random";
     }
 }
 
