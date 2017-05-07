@@ -34,11 +34,11 @@ static SortFuncInfo sorts[] = {
     { quickSort, "Quick Sort" }
 };
 
-static size_t testSizes[] = { 100, 500, 1000, 2000, 3000, 4000, 5000, 10000, 15000, 20000, 25000, 30000, 40000, 50000, 100000 };
+static size_t testSizes[] = { 100, 500, 1000, 2000, 3000, 4000, 5000, 10000, 15000, 20000, 25000, 30000, 40000, 50000, 75000, 100000 };
 
 
 int main() {
-    const size_t runs = 1;
+    const size_t runs = 10;
     const size_t numTests = len(testSizes);
 
     printTestSizes(testSizes, numTests);
