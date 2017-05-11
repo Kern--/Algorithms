@@ -16,7 +16,9 @@ As expected, bubble sort, insertion sort, and selection sort all show an n<sup>2
 
 Surprisingly mergesort, which should be nlog(n) looks awfully similar to insertion sort. This is explained by my poor merge implementation. Since I wanted to do an in-place merge, the merge step degrades to a slighly optimized insertion sort.
 
-Quick Sort is so fast that it is not pictured. At 30,000 elements, it was still only ~15ms.
+Also somewhat surprising is that insertion sort, which requires shifting an array to make space for insertion, performs worse than selection sort, which only needs one swap to sort each element. It's worth noting, however, that selection sort must check all of the unsorted array to find the next element. Insertion sort only needs to consider the sorted section of the array until it finds a smaller element, at which point it can short circuit. Only in the pathological case of a reverse sorted array (which we'll consider later) would insertion sort need to consider the entire sorted portion of the array. Therefore, when sorting a random array, insertion sort scans less of the array on every iteration than selection sort would. Additionally, since this insertion sort implementation only needs to move any given element by 1, all memory accesses exist in at most 2 cache lines, which means the shifting operation should not cause more main memory accesses than just scanning the list would.
+
+Quick Sort is so fast that it is not pictured. At 100,000 elements, it was still only ~15ms.
 
 ## Presorted arrays
 ![Time to sort presorted array](presorted.png)
@@ -31,4 +33,7 @@ Selection Sort - In order to select the correct element, selection sort still ne
 ## Inverse Sorted Arrays
 ![Time to sort inverse sorted arrays](inversesorted.png)
 
-Analysis to come
+Probably the hardest thing for me to describe in these results is the fact that bubble sort is more efficient at sorting a reverse array than a random array. I would have expected this to be the worst performance as it requires shifting the entire array down one element to sort each element. I really don't have an explanation for this one. Possibly some direct comparisons between a random and reverse sorted array would be good to make sure there wasn't a configuration difference.
+
+As alluded to in the random array section, selection sort now performs better than insertion sort. This is expected as now each requires a full scan to find the next element/insertion point, respectively. The difference is that insertion sort requires a write during the scan that selection sort does not.
+
