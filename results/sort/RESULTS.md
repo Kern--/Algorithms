@@ -37,3 +37,6 @@ Probably the hardest thing for me to describe in these results is the fact that 
 
 As alluded to in the random array section, selection sort now performs better than insertion sort. This is expected as now each requires a full scan to find the next element/insertion point, respectively. The difference is that insertion sort requires a write during the scan that selection sort does not.
 
+Merge sort remains a slightly optimized insertion sort and so retains it's slightly-better-than-insertion-sort performance.
+
+Finally, quicksort still behaves with the same performance as before
