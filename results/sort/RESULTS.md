@@ -40,3 +40,37 @@ As alluded to in the random array section, selection sort now performs better th
 Merge sort remains a slightly optimized insertion sort and so retains it's slightly-better-than-insertion-sort performance.
 
 Finally, quicksort still behaves with the same performance as before
+
+## Raw data
+```
+All tables contain the averate time to sort (in ms) of 10 trials. Each section contains a different initial array configuration, each column shows the number of elements sorted, and each cell shows the average time.
+
+Random Array
+# Elements      100 	500 	1000	2000	3000	4000	5000	10000	15000	20000	25000	30000	40000	50000	75000	100000	
+
+Bubble Sort	0	1	4	16	41	79	126	501	1055	1877	2986	4367	7638	11990	29170	52224	
+Insertion Sort	0	0	0	2	7	12	19	80	176	316	502	719	1295	1986	4568	8232	
+Selection Sort	0	0	1	5	12	22	36	138	327	564	822	1193	2255	3400	7709	13898	
+Merge Sort	0	0	0	2	5	10	18	67	153	247	406	570	1089	1639	3652	6494	
+Quick Sort	0	0	0	0	0	0	0	1	3	4	5	6	9	11	17	24	
+
+Presorted Array
+
+# Elements       100 	500 	1000	2000	3000	4000	5000	10000	15000	20000	25000	30000	40000	50000	75000	100000	
+
+Bubble Sort	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	
+Insertion Sort	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	
+Selection Sort	0	0	1	5	12	22	35	139	328	520	841	1182	2134	3454	7604	13820	
+Merge Sort	0	0	0	0	0	0	0	0	0	0	0	0	1	1	2	2	
+Quick Sort	0	0	0	0	0	0	0	1	2	2	3	4	6	7	11	16	
+
+Inverse-Sorted Array
+
+# Elements      100 	500 	1000	2000	3000	4000	5000	10000	15000	20000	25000	30000	40000	50000	75000	100000	
+
+Bubble Sort	0	1	4	17	43	76	115	447	943	1709	2759	3950	7382	11028	24156	41784	
+Insertion Sort	0	0	1	6	13	23	36	149	337	602	914	1307	2331	3631	8169	14540	
+Selection Sort	0	0	1	5	11	20	32	125	285	503	770	1103	1964	3067	6928	12271	
+Merge Sort	0	0	1	4	10	19	30	122	272	481	752	1087	1930	3017	6790	12073	
+Quick Sort	0	0	0	0	0	0	0	1	2	3	3	4	6	7	12	16
+```
