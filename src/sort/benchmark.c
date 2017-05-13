@@ -16,16 +16,24 @@ clock_t test_single(SortFunc sort, const size_t arraySize, const ArrayDirection 
 // A function for generating an array with a given default sort order
 int *generateArray(const size_t size, const ArrayDirection direction);
 
+// Runs a suite of tests against a sort function. For each test size, an array is generated of that size in the specified initial sort direction.
+//  This process is repeated runs times and the average is placed in the return result at the same index as the array size. At the end, returns
+//  an array of the average number of clocks spent sorting the array for each test size
 clock_t *runTestSuite(SortFuncInfo sort, const size_t tests[], const size_t numTests, const ArrayDirection arrayDirection, const size_t runs);
 
+// Computes the average of an array of clock_t
 clock_t average(const clock_t array[], const size_t arraySize);
 
+// Converts cycles to milliseconds
 clock_t cyclesToMs(const clock_t cycles);
 
+// Converts an ArrayDirection to a name that describes it (This should probably be handled differently)
 const char *directionName(ArrayDirection direction);
 
+// Prints out a list of array sizes to be tested in a format that's useful for building a table of results
 void printTestSizes(const size_t tests[], const size_t arraySize);
 
+// Prints out the results of tests along with a label for use in building a table of results
 void printTestResults(const char label[], const clock_t results[], const size_t arraySize);
 
 static SortFuncInfo sorts[] = {
