@@ -11,7 +11,7 @@ OBJ=sort.o util.o
 $(TARGET): $(OBJ) $(SRC)
 	$(CC) -o $@ $^ $(CFLAGS)
 
-sanity: $(OBJ) main.c
+sanity: $(OBJ) sanity.c
 	$(CC) -o $@ $^ $(CFLAGS)
 
 test: $(OBJ) test.c
